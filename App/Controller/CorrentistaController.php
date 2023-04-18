@@ -7,6 +7,11 @@ use Exception;
 
 class CorrentistaController extends Controller
 {
+    public static function entrar()
+    {
+        //
+    }
+
     public static function salvar() : void
     {
         try
