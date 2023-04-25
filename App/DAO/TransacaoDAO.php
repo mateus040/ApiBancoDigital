@@ -43,7 +43,12 @@ class TransacaoDAO extends DAO
 
     public function select()
     {
-        $sql = "SELECT * FROM transacao";
+        $sql = "SELECT t.*, corr1.nome as nome_remetente, corr2.nome as nome_recebeu
+                FROM transacao t
+                JOIN conta c1 ON c1.id = t.id_conta_remetente
+                JOIN correntista co1 ON co1.id = corr1.id_correntista
+                JOIN conta c2 ON c2.id = t.id_conta_destinatario
+                JOIN correntista co2 ON co2.id = coor2.id_correntista";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -54,18 +59,21 @@ class TransacaoDAO extends DAO
 
     public function selectById(int $id)
     {
-        /*$sql = "SELECT cp.*, co.nome as conta_nome
-                FROM transacao cp
-                JOIN conta c ON c.id = cp.id_conta
-                JOIN correntista co ON co.id = c.id_correntista
-                WHERE cp.id = ?";
+        $sql = "SELECT t.*, corr1.nome as nome_remetente, corr2.nome as nome_recebeu
+                FROM transacao t
+                JOIN conta c1 ON c1.id = t.id_conta_remetente
+                JOIN correntista co1 ON co1.id = corr1.id_correntista
+                JOIN conta c2 ON c2.id = t.id_conta_destinatario
+                JOIN correntista co2 ON co2.id = coor2.id_correntista
+                WHERE t.id = ?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);
 
         $stmt->execute();
 
-        return $stmt->fetchObject("App\Model\TransacaoModel"); */
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+                
     }
 
     public function delete(int $id)
