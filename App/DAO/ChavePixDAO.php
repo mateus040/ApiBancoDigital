@@ -18,9 +18,9 @@ class ChavePixDAO extends DAO
 
         $stmt = $this->conexao->prepare($sql);
 
-        $stmt->bindValue(1, $model->chave);        
-        $stmt->bindValue(2, $model->tipo);        
-        $stmt->bindValue(3, $model->id_conta);           
+        $stmt->bindValue(1, $model->chave);
+        $stmt->bindValue(2, $model->tipo);
+        $stmt->bindValue(3, $model->id_conta);
 
         $stmt->execute();
     }
@@ -30,7 +30,7 @@ class ChavePixDAO extends DAO
         $sql = "UPDATE chave_pix SET chave = ?, tipo = ?, id_conta = ? WHERE id = ?";
 
         $stmt = $this->conexao->prepare($sql);
-   
+
         $stmt->bindValue(1, $model->chave);
         $stmt->bindValue(2, $model->tipo);
         $stmt->bindValue(3, $model->id_conta);
@@ -41,7 +41,10 @@ class ChavePixDAO extends DAO
 
     public function select()
     {
-        $sql = "SELECT * FROM chave_pix";
+        $sql = "SELECT cp.*, co.nome as conta_nome
+                FROM chave_pix cp
+                JOIN conta c ON c.id = cp.id_conta
+                JOIN correntista co ON co.id = c.id_correntista";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -72,7 +75,7 @@ class ChavePixDAO extends DAO
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);
-        
+
         $stmt->execute();
     }
 }

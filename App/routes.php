@@ -13,25 +13,25 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch($url)
 {
-    /*case '/correntista/save':
+    case '/correntista/save':
         CorrentistaController::save();
+    break;
+
+    case '/conta/extrato':
+        ContaController::extrato();
+    break;
+
+    case '/conta/pix/enviar':
+        ContaController::EnviarPix();
+    break;
+
+    case '/conta/pix/receber':
+        ContaController::ReceberPix();
     break;
 
     case '/correntista/entrar':
         CorrentistaController::entrar();
     break;
-
-    case '/conta/pix/enviar':
-        ChavePixController::enviar();  ou ContaController 
-    break;
-
-    case '/conta/pix/receber':
-        ChavePixController::receber();  ou ContaController 
-    break;
-    
-    case '/conta/extrato':
-        ContaController::extrato();
-    break; */
 
     /* Rota não identificada */
     default:
