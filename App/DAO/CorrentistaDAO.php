@@ -3,12 +3,26 @@
 namespace App\DAO;
 
 use App\Model\CorrentistaModel;
+use \PDO;
 
 class CorrentistaDAO extends DAO
 {
     public function __construct()
     {
         parent::__construct();   
+    }
+
+    public function insert(CorrentistaModel $model) : bool
+    {
+        $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) VALUES (?, ?, ?, ?)";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1, $model->nome);
+        $stmt->bindValue(2, $model->cpf);
+        $stmt->bindValue(3, $model->data_nasc);
+        $stmt->bindValue(4, $model->senha);
+
+        return $stmt->execute();
     }
 
     public function select()
@@ -20,32 +34,31 @@ class CorrentistaDAO extends DAO
 
         return $stmt->fetchAll(DAO::FETCH_CLASS);
     }
-
-    public function insert(CorrentistaModel $m) : bool
-    {
-        $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) VALUES (?, ?, ?, ?)";
-
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->nome);
-        $stmt->bindValue(2, $m->cpf);
-        $stmt->bindValue(3, $m->data_nasc);
-        $stmt->bindValue(4, $m->senha);
-
-        return $stmt->execute();
-    }
-
-    public function update(CorrentistaModel $m)
+    
+    public function update(CorrentistaModel $model)
     {
         $sql = "UPDATE correntista SET nome=?, cpf=?, data_nasc=? WHERE id=?";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->nome);
-        $stmt->bindValue(2, $m->cpf);
-        $stmt->bindValue(3, $m->data_nasc);
-        $stmt->bindValue(4, $m->senha);
-        $stmt->bindValue(5, $m->id);
+        $stmt->bindValue(1, $model->nome);
+        $stmt->bindValue(2, $model->cpf);
+        $stmt->bindValue(3, $model->data_nasc);
+        $stmt->bindValue(4, $model->senha);
+        $stmt->bindValue(5, $model->id);
         
         return $stmt->execute();
+    }
+
+    public function selectById(int $id)
+    {
+        $sql = "SELECT * FROM correntista WHERE id = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
     }
 
     public function delete(int $id) : bool
