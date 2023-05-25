@@ -6,9 +6,19 @@ use App\DAO\CorrentistaDAO;
 
 class CorrentistaModel extends Model
 {
-    public $id, $nome, $cpf, $data_nasc, $senha;
+    public $id, $nome, $email, $cpf, $data_nasc, $senha;
 
-    public function save()
+    public function save() : ?CorrentistaModel
+    {
+        return (new CorrentistaDAO())->save($this);
+    }
+
+    public function getByCfpAndSenha($cpf, $senha) : CorrentistaModel
+    {
+        return (new CorrentistaDAO())->selectByCpfAndSenha($cpf, $senha);
+    }
+
+    /*public function save()
     {
         $dao = new CorrentistaDAO();
 
@@ -37,5 +47,5 @@ class CorrentistaModel extends Model
         $dao = new CorrentistaDAO();
 
         $this->rows = $dao->selectById($id);
-    }
+    }*/
 }
