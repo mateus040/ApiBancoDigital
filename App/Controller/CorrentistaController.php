@@ -11,7 +11,7 @@ class CorrentistaController extends Controller
     {
         try
         {
-            $data = json_encode(file_get_contents('php://input'));
+            $data = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
 
@@ -28,7 +28,7 @@ class CorrentistaController extends Controller
     {
         try
         {
-            $data = json_encode(file_get_contents('php://input'));
+            $data = json_decode(file_get_contents('php://input'));
 
             $model = new CorrentistaModel();
 
@@ -37,9 +37,9 @@ class CorrentistaController extends Controller
                 $prop_letra_minuscula = strtolower($key);
 
                 $model->$prop_letra_minuscula = $value;
-
-                parent::getExceptionAsJSON($model->save());
             }
+
+            parent::getResponseAsJSON($model->save());
         }
         catch(Exception $e)
         {
