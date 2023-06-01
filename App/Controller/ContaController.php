@@ -2,35 +2,30 @@
 
 namespace App\Controller;
 
+use App\Model\ContaModel;
+
 class ContaController extends Controller
 {
-    public static function save()
+    public static function abrir()
     {
 
     }
 
-    public static function select()
+    public static function fechar()
     {
 
     }
 
     public static function extrato()
     {
-        
-    }
-
-    public static function EnviarPix()
-    {
 
     }
 
-    public static function ReceberPix()
+    public static function index()
     {
+        //$model = new ContaModel();
+        //$model->getAllRows();
 
-    }
-
-    public static function delete()
-    {
-
+        //parent::getResponseAsJSON($model->rows);
     }
 }
