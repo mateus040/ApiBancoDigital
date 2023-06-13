@@ -8,7 +8,7 @@ use App\Controller\
 };
 
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch($url)
 {
@@ -24,7 +24,7 @@ switch($url)
 
     // Correntista
     case '/correntista/salvar':
-        CorrentistaController::save();
+        CorrentistaController::salvar();
     break;
 
     case '/correntista/entrar':

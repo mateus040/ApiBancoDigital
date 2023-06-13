@@ -24,7 +24,7 @@ class CorrentistaController extends Controller
         }
     }
 
-    public static function save() : void
+    public static function salvar() : void
     {
         try
         {
@@ -41,7 +41,7 @@ class CorrentistaController extends Controller
 
             parent::getResponseAsJSON($model->save());
         }
-        catch(Exception $e)
+        catch (Exception $e)
         {
             parent::LogError($e);
             parent::getExceptionAsJSON($e);
