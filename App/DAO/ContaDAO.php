@@ -12,9 +12,9 @@ class ContaDAO extends DAO
         parent::__construct();
     }
 
-    public function insert(ContaModel $model)
+    public function insert(ContaModel $model) : ?ContaModel
     {
-        $sql = "INSERT INTO conta (id_cliente, saldo, limite, tipo, data_abertura) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO conta (id_cliente, saldo, limite, tipo, data_abertura) VALUES (?, ?, ?, ?, NOW())";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -22,9 +22,12 @@ class ContaDAO extends DAO
         $stmt->bindValue(2, $model->saldo);
         $stmt->bindValue(3, $model->limite);
         $stmt->bindValue(4, $model->tipo);
-        $stmt->bindValue(5, $model->data_abertura);
 
-        return $stmt->execute();
+        $stmt->execute();
+
+        $model->id = $this->conexao->lastInsertId();
+
+        return $model;
     }
 
     public function select(int $id_cliente)
