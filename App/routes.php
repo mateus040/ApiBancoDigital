@@ -2,6 +2,7 @@
 
 use App\Controller\
 {
+    ChavePixController,
     ContaController,
     CorrentistaController,
     TransacaoController
@@ -51,6 +52,15 @@ switch($url)
 
     case '/transacao/pix/enviar':
         TransacaoController::enviarPix();
+    break;
+
+    // Chave Pix
+    case '/pix/chave/salvar':
+        ChavePixController::salvar();
+    break;
+
+    case '/pix/chave/remover':
+        ChavePixController::remover();
     break;
 
 
