@@ -17,7 +17,7 @@ class ChavePixController extends Controller
             $model = new ChavePixModel();
 
             // Copiando os valores de $data para $model dinâmicamente
-            foreach (get_objects_vars($data) as $key => $value)
+            foreach (get_object_vars($data) as $key => $value)
             {
                 $prop_letra_minuscula = strtolower($key);
 
